@@ -15,5 +15,12 @@
   "bugs": {
     "url": "https://github.com/TacticalBanana96/reptile-monitor/issues"
   },
-  "homepage": "https://github.com/TacticalBanana96/reptile-monitor#readme"
+  "homepage": "https://github.com/TacticalBanana96/reptile-monitor#readme",
+  "dependencies": {
+    "aws-sdk": "^2.437.0",
+    "vue": "^2.6.10"
+  },
+  "devDependencies": {
+    "jest": "^24.7.1"
+  }
 }
