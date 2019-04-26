@@ -1,9 +1,10 @@
 <template>
   <Page>
-    <ActionBar title="YOUR APP"></ActionBar>
+    <ActionBar :title="header"></ActionBar>
 
     <StackLayout>
-      <Label class="body m-20" :text="message" textWrap="true"></Label>
+      <h1 class="body m-20" :text="message" textWrap="true"></h1>
+      <RadCalendar height="1000px"/>
       <Button class="btn btn-primary" text="Add" @tap="add"></Button>
       <Button class="btn btn-primary" text="Back" @tap="back"></Button>
     </StackLayout>
@@ -15,7 +16,8 @@ import Home from "./Home";
 export default {
   data() {
     return {
-      message: "Please Enter Your Reptiles information"
+      header: "Monitor",
+      title: "Enter info for your reptile!"
     };
   },
   methods: {
