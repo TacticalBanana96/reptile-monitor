@@ -21,43 +21,99 @@
         </StackLayout>
       </StackLayout>
     </ActionBar>
-    <TabView androidTabsPosition="bottom">
-      <!--//TODO: is there a vue source for this? -->
-      <TabViewItem id="parent4" title="Home">
-        <Label text="Label in Tab 1"/>
-      </TabViewItem>
-      <TabViewItem title="Profile">
-        <Label text="Label in Tab 2"/>
-      </TabViewItem>
-    </TabView>
+    <StackLayout orientation="vertical" width="100%" height="100%">
+      <Button text="Add New Reptile" @tap="addNewReptile"/>
+      <GridLayout>
+        <ListView
+          class="list-group"
+          separatorColor="transparent"
+          for="todo in todos"
+          @itemTap="onItemTap"
+          style="height:75%"
+          :key="index"
+        >
+          <v-template>
+            <Label :text="todo" class="list-group-item-heading" textWrap="true"/>
+          </v-template>
+        </ListView>
+      </GridLayout>
+      <!-- <ListView class="list-group" for="item on items" @itemTap="onItemTap" style="height:75%">
+        <v-template>
+      <item :item="item.name" @clicked="showItem(item)"/>-->
+      <!-- </v-template>
+      </ListView>-->
+      <!-- </GridLayout> -->
+
+      <!-- <v-template>
+          <Label :text="reptile.name" class="list-group-item-heading" textWrap="true"/>
+        </v-template>
+      </ListView>-->
+    </StackLayout>
   </Page>
 </template>
 
 <script>
-import Vue from "nativescript-vue";
-import RadSideDrawer from "nativescript-ui-sidedrawer/vue";
-import AddReptile from "./AddReptile";
-
-Vue.use(RadSideDrawer);
-
 export default {
   methods: {
-    onOpenDrawerTap() {
-      this.$refs.drawer.nativeView.showDrawer();
+    onItemTap: function(args) {
+      console.log("Item with index: " + args.index + " tapped");
     },
-    onCloseDrawerTap() {
-      this.$refs.drawer.nativeView.closeDrawer();
-    },
-    addNewReptile() {
-      this.$navigateTo(AddReptile);
+    addNewReptile() {},
+    onButtonTap() {
+      if (this.textFieldValue === "") return; // Prevents users from entering an empty string.
+      console.log("New task added: " + this.textFieldValue + "."); // Logs the newly added task in the console for debugging.
+      this.todos.unshift({ name: this.textFieldValue }); // Adds tasks in the ToDo array. Newly added tasks are immediately shown on the screen.
+      this.textFieldValue = ""; // Clears the text field so that users can start adding new tasks immediately.
     }
   },
 
   data() {
     return {
-      mainContentText:
-        "SideDrawer for NativeScript can be easily setup in the XML definition of your page by defining main- and drawer-content. The component" +
-        " has a default transition and position and also exposes notifications related to changes in its state. Swipe from left to open side drawer."
+      todos: [
+        {
+          name: "Manila Ultimate Tombstone Burger",
+          cover: "~/assets/images/food/burger640.jpg",
+          images: [
+            { src: "~/app/images/no_icon.jpg" },
+            { src: "~/app/images/no_icon.jpg" },
+            { src: "~/app/images/no_icon.jpg" },
+            { src: "~/app/images/no_icon.jpg" },
+            { src: "~/app/images/no_icon.jpg" },
+            { src: "~/app/images/no_icon.jpg" }
+          ],
+          category: "Burger",
+          categoryTag: "#2D9CDB",
+          price: "300.00",
+          likes: 987,
+          isLike: false,
+          isFavorite: true,
+          comments: 13,
+          rating: "4.5",
+          description: "a"
+        },
+        {
+          name: "Quezon Chocolate Marble Pancake",
+          cover: "~/assets/images/food/pancake640.jpg",
+          images: [
+            { src: "~/app/images/no_icon.jpg" },
+            { src: "~/app/images/no_icon.jpg" },
+            { src: "~/app/images/no_icon.jpg" },
+            { src: "~/app/images/no_icon.jpg" },
+            { src: "~/app/images/no_icon.jpg" },
+            { src: "~/app/images/no_icon.jpg" }
+          ],
+          category: "Pancake",
+          categoryTag: "#e4ce0d",
+          price: "230.00",
+          likes: 891,
+          isLike: true,
+          isFavorite: true,
+          comments: 7,
+          rating: "4.0",
+          description: "a"
+        }
+      ],
+      textFieldValue: ""
     };
   }
 };
